@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="OTRSReporter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/OTRSReporter_jar</output-path>
+    <root id="archive" name="OTRSReporter.jar">
+      <element id="module-output" name="OTRSReporter" />
+      <element id="library" level="project" name="lib" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,111 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+
+      google.charts.load('current', {'packages':['line']});
+
+      google.charts.setOnLoadCallback(drawChart);
+
+ 
+
+    function drawChart() {
+
+ 
+
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('string', 'День');
+
+      data.addColumn('number', 'Пришло заявок');
+
+      data.addColumn('number', 'Закрыто заявок');
+
+      data.addColumn('number', 'Закрыто согласно SLA');
+
+ 
+
+      data.addRows([
+
+        ['Пн',  50, 44, 42],
+
+        ['Вт',  74, 42, 40],
+
+        ['Ср',  98,  47, 45],
+
+        ['Чт',  47, 52, 51],
+
+        ['Пт',  30, 40, 40],
+
+        ['Сб',   12, 20,  15],
+
+        ['Вс',   20, 25,  25]
+
+         ]);
+
+ 
+
+      var options = {
+
+        chart: {
+
+          title: 'Уровень сервиса за последнюю неделю',
+
+          subtitle: 'Дата формирования отчета 18.01.2017 13:08'
+
+        },
+
+        width: 900,
+
+        height: 500,
+
+        axes: {
+
+          x: {
+
+            0: {side: 'bottom'}
+
+          }
+
+        },
+
+                               legend: 'none',
+
+          series: {
+
+            0: { color: '#FF0000' },
+
+            1: { color: '#0000FF' },
+
+            2: { color: '#008000' },
+
+          }
+
+ 
+
+      };
+
+ 
+
+      var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+ 
+
+      chart.draw(data, options);
+
+    }
+
+  </script>
+
+</head>
+
+<body>
+
+  <div id="line_top_x"></div>
+
+</body>
+
+</html>
