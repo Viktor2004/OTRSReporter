@@ -38,7 +38,24 @@ public class Params {
     /**
      * Версия программы
      */
-    private static String version = "1.0";
+    private static String version = "1.1.0";
+    /**
+     * ID сессии, нужна для подключения
+     */
+    private static String sessionID;
+    /**
+     * Папка, куда будут складываться файлы с таблицами и графиками аналитических рассчетов
+     */
+    private static String dirForTables = ".";
+    /**
+     * Параметр показывает запускать ли программу в "серверном" режиме, когда постоянно висит в трее и регулярно перестраивает результаты.
+     */
+    private static boolean ServerMode = false;
+    /**
+     * Частота обновления таблиц.
+     */
+    private static int timeToRefreshChartInMins = 10;
+
     private static Params ourInstance = new Params();
 
 
@@ -88,8 +105,17 @@ public class Params {
         // прописываем путь к файлу со списком пользователй
         fileWithUsers = props.getProperty ("LIST_OF_USERS");
         // выставляем параметр будем ли мы использовать сессии при загрузке тикетов
-
-
+      //уже не выставляем и почти всегда используем сессии.
+       if (props.getProperty("SERVER_MODE").equals("true")) {
+            ServerMode = true;
+        }
+        //выставляем куда будем складывать графики с результатами расчетов.
+        if(props.getProperty("DIRECTORY_FOR_CHARTS") != null) {
+            dirForTables = props.getProperty("DIRECTORY_FOR_CHARTS");
+        }
+        if (props.getProperty("TIME_TO_REFRESG_CHARTS_MINS") != null) {
+            timeToRefreshChartInMins = Integer.parseInt(props.getProperty("TIME_TO_REFRESG_CHARTS_MINS"));
+        }
     }
 
     public static Properties getProps() {
@@ -131,5 +157,30 @@ public class Params {
 
     public static String getVersion() {
         return version;
+
+    }
+
+    public static String getSessionID() {
+        return sessionID;
+    }
+
+    public static void setSessionID(String sessionID) {
+        Params.sessionID = sessionID;
+    }
+
+    public static String getDirForTables() {
+        return dirForTables;
+    }
+
+    public static void setDirForTables(String dirForTables) {
+        Params.dirForTables = dirForTables;
+    }
+
+    public static boolean isServerMode() {
+        return ServerMode;
+    }
+
+    public static int getTimeToRefreshChartInMins() {
+        return timeToRefreshChartInMins;
     }
 }

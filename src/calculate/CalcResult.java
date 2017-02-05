@@ -12,6 +12,7 @@ public class CalcResult {
     private float slaLevel;
     private int totalUnclassified;
 
+
     public CalcResult() {
         totalOpened = 0;
         totalClosed = 0;

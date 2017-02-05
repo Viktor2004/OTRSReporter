@@ -16,20 +16,21 @@ import java.util.List;
  */
 public class Calc {
     private static final Logger log = Logger.getLogger(Calc.class);
-    public static CalcResult countSla (List<TicketImpl> ticketList) {
+    public static CalcResult countSla (List<TicketImpl> ticketList, Date startDate, Date endDate) {
         CalcResult result = new CalcResult();
         for (TicketImpl ticket : ticketList ){
+            //TODO захардкожено merged. Нужно вынести в параметры.
             if (!ticket.getQueue().equals(Params.getWithoutQueue())&& !ticket.getStateType().equals("merged")) {
                 if (ticket.getStateType().equals("closed")) {
-                    if (ticket.getCloseDate() != null && (ticket.getCloseDate().before(Params.getEndDateInDate()))) {
+                    if (ticket.getCloseDate() != null && (ticket.getCloseDate().before(endDate))) {
                         result.increaseTotalClosed();
                     }
                     if (ticket.getSolutionDiffInMin() != null
                             && Integer.parseInt(ticket.getSolutionDiffInMin()) > 0
-                            && (ticket.getCloseDate().before(Params.getEndDateInDate()))) {
+                            && (ticket.getCloseDate().before(endDate))) {
                         result.increaseTotalClosedInSla();
                     }
-                    if (ticket.getCreateDate() != null && Params.getStartDateInDate().before(ticket.getCreateDate())) {
+                    if (ticket.getCreateDate() != null && startDate.before(ticket.getCreateDate())) {
                         result.increaseTotalOpened();
                     }
                     if (ticket.getSolutionDiffInMin() == null) {

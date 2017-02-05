@@ -17,6 +17,14 @@ import java.util.*;
  */
 public class Soap {
     private static final Logger log = Logger.getLogger(Soap.class);
+
+    /**
+     * Метод для получения одного параметра из SOAP Message. Возвращает первый найденный результат
+     * @param message - само сообщение
+     * @param parametr - тег по которому идет писк.
+     * @return
+     * @throws SOAPException
+     */
     public static String getOneParametrFromSoapMessage(SOAPMessage message, String parametr) throws SOAPException {
         String result;
         String openSeparator = "<"+parametr+">";
@@ -34,6 +42,13 @@ public class Soap {
         return result;
     }
 
+    /**
+     * Метод для получения всех параметра из SOAP Message. Возвращает все результаты списком.
+     * @param message
+     * @param parametr
+     * @return
+     * @throws SOAPException
+     */
     public static List<String> getAllParametrsFromSoapMessage(SOAPMessage message, String parametr) throws SOAPException {
         List<String> result = new ArrayList<>();
         String openSeparator = "<"+parametr+">";
@@ -47,6 +62,14 @@ public class Soap {
 
         return result;
     }
+
+    /**
+     * Возвращает списком все тикеты из сообщений. Тикеты уже заполнены. В дальнейшем будет заменено маршаллером.
+     * @param message
+     * @return
+     * @throws SOAPException
+     * @throws ParseException
+     */
     public static List<TicketImpl> fillTicketFromSoapMessage (SOAPMessage message) throws SOAPException, ParseException {
        List<String> allTickets = getAllParametrsFromSoapMessage(message,"Ticket");
         List<TicketImpl> result = new ArrayList<TicketImpl>();
@@ -77,6 +100,13 @@ public class Soap {
 
         return result;
     }
+
+    /**
+     * Конвертит SOAP Message в строку. К сожалению нормальным способом сделать не удалось. Пока через временный файл делается, потом поправлю, чтобы все в памяти крутилось.
+     * @param message
+     * @return
+     * @throws SOAPException
+     */
     private static String convertSoapMessageToString (SOAPMessage message) throws SOAPException {
           final String sFileName = "otrs.temp";
         String result = null;
@@ -107,6 +137,14 @@ public class Soap {
         return result;
     }
 
+    /**
+     * Метод для получения номеров всех открытых и закрытых тикетов за заданный период.
+     * Даты учитываются с точностью до секунды.
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws Exception
+     */
     public static List<String> getAllOpenAndClosedTicketsInPeriod (Date startDate, Date endDate) throws Exception {
         ArrayList<String> result = new ArrayList<>();
         Date tempDate = startDate;
@@ -137,11 +175,22 @@ public class Soap {
 
     }
 
+    /**
+     * Метод для получения ID сессии (при этом создается новая сесстия)
+     * @return
+     * @throws SOAPException
+     */
     public static String getSessionID() throws SOAPException {
        String result = Soap.getOneParametrFromSoapMessage(WebServiceClient.getSessionUID(),"SessionID");
         return result;
     }
 
+    /**
+     * По сути маршаллер для одного тега. Возвращает первый найденный результат. Потом сделаю красивее.
+     * @param source
+     * @param parametr
+     * @return
+     */
     private static String getOneParametrFromString (String source, String parametr) {
         String result;
         String openSeparator = "<"+parametr+">";
@@ -159,4 +208,11 @@ public class Soap {
         return result;
     }
 
+    /**
+     * Устанавливает сессию и помещает ее ID в параметры.
+     */
+    public static void makeSession () throws SOAPException {
+        Params.setSessionID(getSessionID());
+
+    }
 }
