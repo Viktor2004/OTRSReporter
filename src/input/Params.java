@@ -38,7 +38,7 @@ public class Params {
     /**
      * Версия программы
      */
-    private static String version = "1.1.0";
+    private static String version = "1.1.1";
     /**
      * ID сессии, нужна для подключения
      */
@@ -76,6 +76,7 @@ public class Params {
         // определяем текущий каталог
         File currentDir = new File(".");
         try {
+
             // определяем полный путь к файлу
             String sFilePath = currentDir.getCanonicalPath() + sDirSeparator + sFileName;
             // создаем поток для чтения из файла

@@ -32,6 +32,7 @@ public class Executor {
                 htmlTables.buildWeekReport(new Date());
                 log.info("График построили.");
                 Thread.sleep(Params.getTimeToRefreshChartInMins()*1000*60);
+                Params.setSessionID(null);
             }
 
         } else {

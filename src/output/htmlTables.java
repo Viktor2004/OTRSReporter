@@ -31,8 +31,9 @@ public class htmlTables {
         log.info("========>build week report");
         File sourse = new File(currentDir.getCanonicalPath() + sDirSeparator +"templates"+sDirSeparator+sFileName);
         File target = new File (new File(Params.getDirForTables()) + sDirSeparator+"week.html");
-        copy (sourse,target);
+
         WeekResult weekResult = new WeekResult(date);
+        copy (sourse,target);
 
         replaceInFile(target,"<WeekResult>",weekResult.toString());
         replaceInFile(target,"<CurrentDate>",new SimpleDateFormat( "dd.MM.yyyy HH:mm:ss" ).format ( date ));

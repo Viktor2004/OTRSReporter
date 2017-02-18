@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+log/log_file.log
+out/*
+otrs.properties
+*.temp
+week.html
