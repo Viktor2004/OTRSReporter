@@ -11,22 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class WebServiceClient {
-/*
-    public static void main(String args[]) throws Exception {
-        // Create SOAP Connection
-        SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();
-        SOAPConnection soapConnection = soapConnectionFactory.createConnection();
-
-        // Send SOAP Message to SOAP Server
-        String url = "http://help.sela.ru/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnectorSOAP/";
-        SOAPMessage soapResponse = soapConnection.call(createSOAPSearchRequest(), url);
-
-        // print SOAP Response
-        System.out.print("Response SOAP Message:");
-        soapResponse.writeTo(System.out);
-
-        soapConnection.close();
-    }*/
 
     public static SOAPMessage getOpenedTickets(Date date) throws Exception {
         //create search request
@@ -105,6 +89,13 @@ public class WebServiceClient {
         return soapResponse;
 
     }
+
+    /**
+     * Создание запроса на поиск.
+     * @param request
+     * @return Либо списко тикетов, либо сами тикеты
+     * @throws Exception
+     */
     private static SOAPMessage createSOAPSearchRequest(SearchRequest request ) throws Exception {
         MessageFactory messageFactory = MessageFactory.newInstance();
         SOAPMessage soapMessage = messageFactory.createMessage();

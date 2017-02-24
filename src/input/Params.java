@@ -38,7 +38,7 @@ public class Params {
     /**
      * Версия программы
      */
-    private static String version = "1.1.1";
+    private static String version = "1.1.2";
     /**
      * ID сессии, нужна для подключения
      */

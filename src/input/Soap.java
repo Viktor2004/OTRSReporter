@@ -102,36 +102,23 @@ public class Soap {
     }
 
     /**
-     * Конвертит SOAP Message в строку. К сожалению нормальным способом сделать не удалось. Пока через временный файл делается, потом поправлю, чтобы все в памяти крутилось.
+     * Конвертит SOAP Message в строку.
      * @param message
      * @return
      * @throws SOAPException
      */
     private static String convertSoapMessageToString (SOAPMessage message) throws SOAPException {
-          final String sFileName = "otrs.temp";
         String result = null;
-        String sDirSeparator = System.getProperty("file.separator");
-        File currentDir = new File(".");
+
         try {
-            // определяем полный путь к файлу
-            String sFilePath = currentDir.getCanonicalPath() + sDirSeparator + sFileName;
-            // создаем поток для чтения из файла
-            FileOutputStream out = new FileOutputStream(sFilePath);
-            // загружаем свойства
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
             message.writeTo(out);
-            out.close();
-            BufferedReader fileReader = new BufferedReader(new FileReader(sFilePath));
-            result = fileReader.readLine();
+            result = new String(out.toByteArray());
 
         } catch (FileNotFoundException e) {
            log.error(e);
-            /*System.out.println("File not found!");
-            e.printStackTrace();*/
         } catch (IOException e) {
             log.error(e);
-           /* System.out.println("IO Error!");
-            e.printStackTrace();*/
-
         }
 
         return result;
