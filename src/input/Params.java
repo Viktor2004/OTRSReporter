@@ -2,14 +2,12 @@ package input;
 
 import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Properties;
 
 /**
@@ -38,7 +36,7 @@ public class Params {
     /**
      * Версия программы
      */
-    private static String version = "1.1.2";
+    private static String version = "1.1.5";
     /**
      * ID сессии, нужна для подключения
      */
@@ -55,6 +53,22 @@ public class Params {
      * Частота обновления таблиц.
      */
     private static int timeToRefreshChartInMins = 10;
+    /**
+     * Статусы тикетов, которые не будут обрабатываться
+     */
+    private static String wihoutState ;
+    /**
+     * Путь к bat-нику, который будет исполняться
+     */
+    private static String batFilePath;
+    /**
+     * Текущая директория. Получаем ее первым параметром при запуске программы.
+     */
+    private static String curDir = null;
+
+    public static String getBatFilePath() {
+        return batFilePath;
+    }
 
     private static Params ourInstance = new Params();
 
@@ -71,10 +85,15 @@ public class Params {
 
     private static Properties props = new Properties();
 
-    public static void loadProperties() throws ParseException {
-
+    public static void loadProperties(String propertDir) throws ParseException {
         // определяем текущий каталог
-        File currentDir = new File(".");
+        File currentDir = null;
+        if (propertDir != null) {
+            currentDir = new File(propertDir);
+            curDir = propertDir;
+        } else {
+            currentDir = new File(".");
+        }
         try {
 
             // определяем полный путь к файлу
@@ -103,6 +122,8 @@ public class Params {
         endDateInDate = format.parse(dateString);
         //получаем очередь, которую не считаем
         withoutQueue = props.getProperty ("WITHOUT_QUEUE");
+        //получаем очередь, которую не считаем
+        wihoutState = props.getProperty ("WITHOUT_STATE");
         // прописываем путь к файлу со списком пользователй
         fileWithUsers = props.getProperty ("LIST_OF_USERS");
         // выставляем параметр будем ли мы использовать сессии при загрузке тикетов
@@ -117,8 +138,29 @@ public class Params {
         if (props.getProperty("TIME_TO_REFRESG_CHARTS_MINS") != null) {
             timeToRefreshChartInMins = Integer.parseInt(props.getProperty("TIME_TO_REFRESG_CHARTS_MINS"));
         }
+        batFilePath = props.getProperty("BAT_FILE_PATH");
     }
+    public static HashSet<String> getUserListFromFile() {
+        // загружаем список пользователей из файла
+        HashSet<String> result = new HashSet<>();
+        try {
+            File f = new File(Params.getFileWithUsers());
+            BufferedReader fin = new BufferedReader(new FileReader(f));
+            String line;
+            while ((line = fin.readLine()) != null) {
+                line = line.replace("\"","");
+                result.add(line.trim());
+            }
+            fin.close();
 
+        } catch (FileNotFoundException e) {
+            log.error(e);
+        } catch (IOException e) {
+            log.error(e);
+
+        }
+        return result;
+    }
     public static Properties getProps() {
         return props;
     }
@@ -183,5 +225,17 @@ public class Params {
 
     public static int getTimeToRefreshChartInMins() {
         return timeToRefreshChartInMins;
+    }
+
+    public static String getWihoutState() {
+        return wihoutState;
+    }
+
+    public static void setWihoutState(String wihoutState) {
+        Params.wihoutState = wihoutState;
+    }
+
+    public static String getCurDir() {
+        return curDir;
     }
 }

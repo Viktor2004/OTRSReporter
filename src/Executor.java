@@ -2,6 +2,7 @@ import calculate.Calc;
 import client.SearchRequest;
 import client.SearchTypes;
 import client.WebServiceClient;
+import input.Cmd;
 import input.Params;
 import input.Soap;
 import output.htmlTables;
@@ -20,14 +21,23 @@ public class Executor {
     private static final Logger log = Logger.getLogger(Executor.class);
 
     public static void main(String[] args) throws Exception {
-
-        Params.loadProperties();
-
+        if (args!=null && args.length>0) {
+            log.info("Загружаем параметры из внешнего файла в папке "+ args[0]);
+            Params.loadProperties(args[0]);
+        } else {
+            Params.loadProperties(null);
+        }
+       //исполняем скрипт, через который получим список пользователей
+       // Cmd.executeCommand("\"D:\\Sert\\1.bat\"");
         if (Params.isServerMode()) {
             log.info("Программа запущена в серверном режиме.");
             log.info("Версия программы : " + Params.getVersion());
             log.info("******************************");
             while (true) {
+                if (Params.getBatFilePath() != null) {
+                    log.info("Запускаем bat файл "+Params.getBatFilePath());
+                    Cmd.executeCommand(Params.getBatFilePath());
+                }
                 log.info("Строим график.");
                 htmlTables.buildWeekReport(new Date());
                 log.info("График построили.");
@@ -67,7 +77,7 @@ public class Executor {
 
             log.info("\n***************************\n" + "Результат расчета :" + "\n" + Calc.countSla(allTicketsImpl, Params.getStartDateInDate(), Params.getEndDateInDate()));
             System.out.println();
-            log.info("\n***************************\n" + "Результат расчета для выбранной группы пользвоателей :" + "\n" + Calc.countSlaForUserGroup(allTicketsImpl));
+            log.info("\n***************************\n" + "Результат расчета для выбранной группы пользвоателей :" + "\n" + Calc.countSlaForUserGroup(allTicketsImpl,Params.getUserListFromFile() , Params.getStartDateInDate(),Params.getEndDateInDate()));
             System.in.read();
 
             if (Params.isServerMode()) {
