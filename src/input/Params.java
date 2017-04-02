@@ -36,7 +36,7 @@ public class Params {
     /**
      * Версия программы
      */
-    private static String version = "1.1.5";
+    private static String version = "1.1.8";
     /**
      * ID сессии, нужна для подключения
      */
@@ -101,7 +101,7 @@ public class Params {
             // создаем поток для чтения из файла
             FileInputStream ins = new FileInputStream(sFilePath);
             // загружаем свойства
-            props.load(ins);
+            props.loadFromXML(ins);
             ins.close();
 
         } catch (FileNotFoundException e) {

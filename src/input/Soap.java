@@ -113,14 +113,12 @@ public class Soap {
         try {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             message.writeTo(out);
-            result = new String(out.toByteArray());
-
+            result = out.toString("UTF-8");
         } catch (FileNotFoundException e) {
            log.error(e);
         } catch (IOException e) {
             log.error(e);
         }
-
         return result;
     }
 

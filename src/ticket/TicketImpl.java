@@ -88,4 +88,9 @@ public class TicketImpl implements Ticket {
     public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket "+customerUserID+" "+owner+" "+queue ;
+    }
 }

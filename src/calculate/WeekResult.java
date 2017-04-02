@@ -25,7 +25,7 @@ public class WeekResult extends CalcResult {
 
     public WeekResult (Date date) throws Exception {
         int i = 0;
-        while (i<7) {
+        while (i<8) {
             try {
                 DayResult dayResult = new DayResult(date);
                 dayResult.fillFromBase();
@@ -45,7 +45,7 @@ public class WeekResult extends CalcResult {
 
     public WeekResult (Date date, HashSet<String> selectedUsers) throws Exception {
         int i = 0;
-        while (i<7) {
+        while (i<8) {
             try {
                 DayResult dayResult = new DayResult(date);
                 dayResult.fillFromBaseForUsergroup(selectedUsers);

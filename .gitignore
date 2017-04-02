@@ -50,3 +50,4 @@ out/*
 otrs.properties
 *.temp
 week.html
+templates/week_template - копия.htm

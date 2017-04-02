@@ -45,7 +45,9 @@ public class Calc {
                     }
 
                 } else {
-                    result.increaseTotalOpened();
+                    if (ticket.getCreateDate() != null && startDate.before(ticket.getCreateDate())) {
+                        result.increaseTotalOpened();
+                    }
                 }
             }
         }
@@ -87,7 +89,8 @@ public class Calc {
                         if (ticket.getCloseDate() != null && (ticket.getCloseDate().before(endDate))) {
                             result.increaseTotalClosed();
                         }
-                        if (ticket.getSolutionDiffInMin() != null && Integer.parseInt(ticket.getSolutionDiffInMin()) > 0) {
+                        if (ticket.getSolutionDiffInMin() != null && Integer.parseInt(ticket.getSolutionDiffInMin()) > 0
+                                && (ticket.getCloseDate().before(endDate))) {
                             result.increaseTotalClosedInSla();
                         }
                         if (ticket.getCreateDate() != null && startDate.before(ticket.getCreateDate())) {
@@ -97,7 +100,9 @@ public class Calc {
                             result.increaseTotalUnclassified();
                         }
                     } else {
-                        result.increaseTotalOpened();
+                        if (ticket.getCreateDate() != null && startDate.before(ticket.getCreateDate())) {
+                            result.increaseTotalOpened();
+                        }
                     }
                 }
             }

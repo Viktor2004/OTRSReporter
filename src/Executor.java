@@ -5,12 +5,15 @@ import client.WebServiceClient;
 import input.Cmd;
 import input.Params;
 import input.Soap;
+import org.apache.log4j.Appender;
+import org.apache.log4j.FileAppender;
 import output.htmlTables;
 import org.apache.log4j.Logger;
 import ticket.TicketImpl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -28,7 +31,12 @@ public class Executor {
             Params.loadProperties(null);
         }
        //исполняем скрипт, через который получим список пользователей
-       // Cmd.executeCommand("\"D:\\Sert\\1.bat\"");
+        if (Params.getBatFilePath() != null) {
+            log.info("Запускаем bat файл "+Params.getBatFilePath());
+            Cmd.executeCommand(Params.getBatFilePath());
+        }
+
+        // Cmd.executeCommand("D:\\Sert\\1.bat");
         if (Params.isServerMode()) {
             log.info("Программа запущена в серверном режиме.");
             log.info("Версия программы : " + Params.getVersion());
