@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.charset.*;
 import java.nio.file.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -35,8 +36,18 @@ public class htmlTables {
         File sourse = new File(currentDir.getCanonicalPath() + sDirSeparator +"templates"+sDirSeparator+sFileName);
         File target = new File (new File(Params.getDirForTables()) + sDirSeparator+"week.html");
 
-        WeekResult weekResult = new WeekResult(date);
-        WeekResult weekResultForGroup = new WeekResult(date,Params.getUserListFromFile());
+        WeekResult weekResult = new WeekResult(date,8);
+        WeekResult weekResultForGroup = new WeekResult(date,Params.getUserListFromFile(),8,true);
+        WeekResult weekResultWithoutGroup = new WeekResult(date,Params.getUserListFromFile(),8,false);
+
+        Calendar calendar = Calendar.getInstance();
+
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+        WeekResult monthResult = new WeekResult(date,dayOfMonth);
+        WeekResult monthResultForGroup = new WeekResult(date,Params.getUserListFromFile(),dayOfMonth,true);
+        WeekResult monthResultWithoutGroup = new WeekResult(date,Params.getUserListFromFile(),dayOfMonth,false);
+
         copy (sourse,target);
 
         //делаем замены в шаблоне
@@ -55,7 +66,33 @@ public class htmlTables {
         replaceInFile(target,"<TotalGroupUnclassified>",Integer.toString(weekResultForGroup.totalUncallsified()));
         replaceInFile(target,"<TotalGroupSLALevel>",Integer.toString((int)(((float)weekResultForGroup.totalClosediinSLA()/weekResultForGroup.totalOpened())*100)));
 
+        replaceInFile(target,"<WeekWithoutGroupResult>",weekResultWithoutGroup.toString());
+        replaceInFile(target,"<TotalWithoutGroupOpened>",Integer.toString(weekResultWithoutGroup.totalOpened()));
+        replaceInFile(target,"<TotalWithoutGroupClosed>",Integer.toString(weekResultWithoutGroup.totalClosed()));
+        replaceInFile(target,"<TotalWithoutGroupClosedInSla>",Integer.toString(weekResultWithoutGroup.totalClosediinSLA()));
+        replaceInFile(target,"<TotalWithoutGroupUnclassified>",Integer.toString(weekResultWithoutGroup.totalUncallsified()));
+        replaceInFile(target,"<TotalWithoutGroupSLALevel>",Integer.toString((int)(((float)weekResultWithoutGroup.totalClosediinSLA()/weekResultWithoutGroup.totalOpened())*100)));
 
+        replaceInFile(target,"<MonthResult>",monthResult.toStringDayAndDate());
+        replaceInFile(target,"<MonthResultOpened>",Integer.toString(monthResult.totalOpened()));
+        replaceInFile(target,"<MonthResultClosed>",Integer.toString(monthResult.totalClosed()));
+        replaceInFile(target,"<MonthResultClosedInSla>",Integer.toString(monthResult.totalClosediinSLA()));
+        replaceInFile(target,"<MonthResultUnclassified>",Integer.toString(monthResult.totalUncallsified()));
+        replaceInFile(target,"<MonthResultSLALevel>",Integer.toString((int)(((float)monthResult.totalClosediinSLA()/monthResult.totalOpened())*100)));
+
+        replaceInFile(target,"<MonthGroupResult>",monthResultForGroup.toStringDayAndDate());
+        replaceInFile(target,"<MonthGroupResultOpened>",Integer.toString(monthResultForGroup.totalOpened()));
+        replaceInFile(target,"<MonthGroupResultClosed>",Integer.toString(monthResultForGroup.totalClosed()));
+        replaceInFile(target,"<MonthGroupResultClosedInSla>",Integer.toString(monthResultForGroup.totalClosediinSLA()));
+        replaceInFile(target,"<MonthGroupResultUnclassified>",Integer.toString(monthResultForGroup.totalUncallsified()));
+        replaceInFile(target,"<MonthGroupResultSLALevel>",Integer.toString((int)(((float)monthResultForGroup.totalClosediinSLA()/monthResultForGroup.totalOpened())*100)));
+
+        replaceInFile(target,"<MonthWithoutGroupResult>",monthResultWithoutGroup.toStringDayAndDate());
+        replaceInFile(target,"<MonthWithoutGroupResultOpened>",Integer.toString(monthResultWithoutGroup.totalOpened()));
+        replaceInFile(target,"<MonthWithoutGroupResultClosed>",Integer.toString(monthResultWithoutGroup.totalClosed()));
+        replaceInFile(target,"<MonthWithoutGroupResultClosedInSla>",Integer.toString(monthResultWithoutGroup.totalClosediinSLA()));
+        replaceInFile(target,"<MonthWithoutGroupResultUnclassified>",Integer.toString(monthResultWithoutGroup.totalUncallsified()));
+        replaceInFile(target,"<MonthWithoutGroupResultSLALevel>",Integer.toString((int)(((float)monthResultWithoutGroup.totalClosediinSLA()/monthResultWithoutGroup.totalOpened())*100)));
 
         replaceInFile(target,"<CurrentDate>",new SimpleDateFormat( "dd.MM.yyyy HH:mm:ss" ).format ( date ));
         log.info(weekResult);

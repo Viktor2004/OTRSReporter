@@ -19,6 +19,7 @@
       <root url="file://$PROJECT_DIR$/lib/stringtemplate4-master/benchmark" />
       <root url="file://$PROJECT_DIR$/lib/stringtemplate4-master/src" />
       <root url="file://$PROJECT_DIR$/lib/stringtemplate4-master/test" />
+      <root url="jar://$USER_HOME$/.ideaLibSources/log4j-1.2.17-sources.jar!/" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
   </library>

@@ -75,6 +75,9 @@ public class DayResult extends CalcResult implements Comparable {
         log.info("<========fill from base day result");
     }
     public void fillFromBaseForUsergroup(HashSet<String> selectedUsers) throws Exception {
+         fillFromBaseForUsergroup(selectedUsers,true);
+    }
+    public void fillFromBaseForUsergroup(HashSet<String> selectedUsers,boolean includeUsers) throws Exception {
         log.info("========>fill from base day group result");
         while (Params.getSessionID() == null){
             Soap.makeSession();
@@ -99,7 +102,7 @@ public class DayResult extends CalcResult implements Comparable {
         endDateCalendar.set(Calendar.MILLISECOND, 999);
         endDate = endDateCalendar.getTime();
 
-        CalcResult tempCalc = Calc.countSlaForUserGroup(Soap.fillTicketFromSoapMessage(WebServiceClient.getTicketByIdAndSessionID(Soap.getAllOpenAndClosedTicketsInPeriod(startDate,endDate), Params.getSessionID())),selectedUsers,startDate,endDate) ;
+        CalcResult tempCalc = Calc.countSlaForUserGroup(Soap.fillTicketFromSoapMessage(WebServiceClient.getTicketByIdAndSessionID(Soap.getAllOpenAndClosedTicketsInPeriod(startDate,endDate), Params.getSessionID())),selectedUsers,startDate,endDate, includeUsers) ;
 
         this.setSlaLevel(tempCalc.getSlaLevel());
         this.setTotalOpened(tempCalc.getTotalOpened());
@@ -115,6 +118,11 @@ public class DayResult extends CalcResult implements Comparable {
 
     public String getFormatedDay() {
         return new SimpleDateFormat( "EE" ).format ( day );
+
+    }
+
+    public String getDayAndDate() {
+        return new SimpleDateFormat( "EE(dd.MM)" ).format ( day );
 
     }
 

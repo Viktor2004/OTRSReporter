@@ -85,7 +85,7 @@ public class Executor {
 
             log.info("\n***************************\n" + "Результат расчета :" + "\n" + Calc.countSla(allTicketsImpl, Params.getStartDateInDate(), Params.getEndDateInDate()));
             System.out.println();
-            log.info("\n***************************\n" + "Результат расчета для выбранной группы пользвоателей :" + "\n" + Calc.countSlaForUserGroup(allTicketsImpl,Params.getUserListFromFile() , Params.getStartDateInDate(),Params.getEndDateInDate()));
+            log.info("\n***************************\n" + "Результат расчета для выбранной группы пользвоателей :" + "\n" + Calc.countSlaForUserGroup(allTicketsImpl,Params.getUserListFromFile() , Params.getStartDateInDate(),Params.getEndDateInDate(),true));
             System.in.read();
 
             if (Params.isServerMode()) {

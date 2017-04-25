@@ -1,6 +1,8 @@
 <html>
 
 <head>
+
+  <title>Отчетность</title>
 	<meta charset="utf-8">
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -167,6 +169,338 @@
     }
 
   </script>
+  
+  <script type="text/javascript">
+
+      google.charts.load('current', {'packages':['line']});
+
+      google.charts.setOnLoadCallback(drawChart);
+
+ 
+
+    function drawChart() {
+
+ 
+
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('string', 'День');
+
+      data.addColumn('number', 'Пришло заявок');
+
+      data.addColumn('number', 'Закрыто заявок');
+
+      data.addColumn('number', 'Закрыто согласно SLA');
+
+ 
+
+      data.addRows([
+
+<WeekWithoutGroupResult>
+         ]);
+
+ 
+
+      var options = {
+
+        chart: {
+
+          title: 'Уровень сервиса без магазинов за последнюю неделю',
+
+          subtitle: 'Дата формирования отчета <CurrentDate>'
+
+        },
+
+        width: 900,
+
+        height: 500,
+
+        axes: {
+
+          x: {
+
+            0: {side: 'bottom'}
+
+          }
+
+        },
+
+                               legend: 'none',
+
+          series: {
+
+            0: { color: '#FF0000' },
+
+            1: { color: '#0000FF' },
+
+            2: { color: '#008000' },
+
+          }
+
+ 
+
+      };
+
+ 
+
+      var chart = new google.charts.Line(document.getElementById('chart_without_group'));
+
+ 
+
+      chart.draw(data, options);
+
+    }
+
+  </script>
+  
+    <script type="text/javascript">
+
+      google.charts.load('current', {'packages':['line']});
+
+      google.charts.setOnLoadCallback(drawChart);
+
+ 
+
+    function drawChart() {
+
+ 
+
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('string', 'День');
+
+      data.addColumn('number', 'Пришло заявок');
+
+      data.addColumn('number', 'Закрыто заявок');
+
+      data.addColumn('number', 'Закрыто согласно SLA');
+
+ 
+
+      data.addRows([
+
+<MonthResult>
+         ]);
+
+ 
+
+      var options = {
+
+        chart: {
+
+          title: 'Уровень сервиса за месяц',
+
+          subtitle: 'Дата формирования отчета <CurrentDate>'
+
+        },
+
+        width: 900,
+
+        height: 500,
+
+        axes: {
+
+          x: {
+
+            0: {side: 'bottom'}
+
+          }
+
+        },
+
+                               legend: 'none',
+
+          series: {
+
+            0: { color: '#FF0000' },
+
+            1: { color: '#0000FF' },
+
+            2: { color: '#008000' },
+
+          }
+
+ 
+
+      };
+
+ 
+
+      var chart = new google.charts.Line(document.getElementById('month_chart'));
+
+ 
+
+      chart.draw(data, options);
+
+    }
+
+  </script>
+  
+      <script type="text/javascript">
+
+      google.charts.load('current', {'packages':['line']});
+
+      google.charts.setOnLoadCallback(drawChart);
+
+ 
+
+    function drawChart() {
+
+ 
+
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('string', 'День');
+
+      data.addColumn('number', 'Пришло заявок');
+
+      data.addColumn('number', 'Закрыто заявок');
+
+      data.addColumn('number', 'Закрыто согласно SLA');
+
+ 
+
+      data.addRows([
+
+<MonthGroupResult>
+         ]);
+
+ 
+
+      var options = {
+
+        chart: {
+
+          title: 'Уровень сервиса в магазинах за месяц',
+
+          subtitle: 'Дата формирования отчета <CurrentDate>'
+
+        },
+
+        width: 900,
+
+        height: 500,
+
+        axes: {
+
+          x: {
+
+            0: {side: 'bottom'}
+
+          }
+
+        },
+
+                               legend: 'none',
+
+          series: {
+
+            0: { color: '#FF0000' },
+
+            1: { color: '#0000FF' },
+
+            2: { color: '#008000' },
+
+          }
+
+ 
+
+      };
+
+ 
+
+      var chart = new google.charts.Line(document.getElementById('month_chart_shops'));
+
+ 
+
+      chart.draw(data, options);
+
+    }
+
+  </script>
+  
+        <script type="text/javascript">
+
+      google.charts.load('current', {'packages':['line']});
+
+      google.charts.setOnLoadCallback(drawChart);
+
+ 
+
+    function drawChart() {
+
+ 
+
+      var data = new google.visualization.DataTable();
+
+      data.addColumn('string', 'День');
+
+      data.addColumn('number', 'Пришло заявок');
+
+      data.addColumn('number', 'Закрыто заявок');
+
+      data.addColumn('number', 'Закрыто согласно SLA');
+
+ 
+
+      data.addRows([
+
+<MonthWithoutGroupResult>
+         ]);
+
+ 
+
+      var options = {
+
+        chart: {
+
+          title: 'Уровень сервиса без магазинов за месяц',
+
+          subtitle: 'Дата формирования отчета <CurrentDate>'
+
+        },
+
+        width: 900,
+
+        height: 500,
+
+        axes: {
+
+          x: {
+
+            0: {side: 'bottom'}
+
+          }
+
+        },
+
+                               legend: 'none',
+
+          series: {
+
+            0: { color: '#FF0000' },
+
+            1: { color: '#0000FF' },
+
+            2: { color: '#008000' },
+
+          }
+
+ 
+
+      };
+
+ 
+
+      var chart = new google.charts.Line(document.getElementById('month_chart_without_shops'));
+
+ 
+
+      chart.draw(data, options);
+
+    }
+
+  </script>
 </head>
 
 <body>
@@ -174,6 +508,14 @@
 	<div id="line_top_x"></div>
 	Всего по магазинам открыто заявок <TotalGroupOpened> , закрыто заявок <TotalGroupClosed>, закрыто по SLA <TotalGroupClosedInSla> ,<br> неклассифицированно <TotalGroupUnclassified>, уровень сервиса - <TotalGroupSLALevel>%
 	<div id="line_group_top_x"></div>
+	Всего без магазинов открыто заявок <TotalWithoutGroupOpened> , закрыто заявок <TotalWithoutGroupClosed>, закрыто по SLA <TotalWithoutGroupClosedInSla> ,<br> неклассифицированно <TotalWithoutGroupUnclassified>, уровень сервиса - <TotalWithoutGroupSLALevel>%
+	<div id="chart_without_group"></div>
+	Всего открыто заявок <MonthResultOpened> , закрыто заявок <MonthResultClosed>, закрыто по SLA <MonthResultClosedInSla> ,<br> неклассифицированно <MonthResultUnclassified>, уровень сервиса - <MonthResultSLALevel>%
+	<div id="month_chart"></div>
+	Всего по магазинам открыто заявок <MonthGroupResultOpened> , закрыто заявок <MonthGroupResultClosed>, закрыто по SLA <MonthGroupResultClosedInSla> ,<br> неклассифицированно <MonthGroupResultUnclassified>, уровень сервиса - <MonthGroupResultSLALevel>%
+	<div id="month_chart_shops"></div>
+	Всего без магазинам открыто заявок <MonthWithoutGroupResultOpened> , закрыто заявок <MonthWithoutGroupResultClosed>, закрыто по SLA <MonthWithoutGroupResultClosedInSla> ,<br> неклассифицированно <MonthWithoutGroupResultUnclassified>, уровень сервиса - <MonthWithoutGroupResultSLALevel>%
+	<div id="month_chart_without_shops"></div>
 </body>
 
 </html>

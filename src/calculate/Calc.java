@@ -63,8 +63,9 @@ public class Calc {
      * @param endDate - конечная дата для подсчета
      * @return
      */
-    public static CalcResult countSlaForUserGroup (List<TicketImpl> ticketList,  HashSet<String> selectedUsers, Date startDate, Date endDate) {
+    public static CalcResult countSlaForUserGroup (List<TicketImpl> ticketList,  HashSet<String> selectedUsers, Date startDate, Date endDate, boolean includeUsers) {
         CalcResult result = new CalcResult();
+
    /*     // загружаем список пользователей из файла
         HashSet<String> selectedUsers = new HashSet<>();
         try {
@@ -83,8 +84,19 @@ public class Calc {
 
         }*/
         for (TicketImpl ticket : ticketList ){
+            Boolean includeUser = true;
+            if (selectedUsers != null){
+                if (selectedUsers.contains(ticket.getCustomerUserID()) && !includeUsers) {
+                    includeUser = false;
+                }
+                if (!selectedUsers.contains(ticket.getCustomerUserID()) && includeUsers) {
+                    includeUser = false;
+                }
+            }
+
+
             if (!ticket.getQueue().equals(Params.getWithoutQueue())&& !ticket.getStateType().equals(Params.getWihoutState())) {
-                if (selectedUsers.contains(ticket.getCustomerUserID())) {
+                if (includeUser) {
                     if (ticket.getStateType().equals("closed")) {
                         if (ticket.getCloseDate() != null && (ticket.getCloseDate().before(endDate))) {
                             result.increaseTotalClosed();

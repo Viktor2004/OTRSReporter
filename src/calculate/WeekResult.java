@@ -23,9 +23,10 @@ public class WeekResult extends CalcResult {
         this.results = results;
     }
 
-    public WeekResult (Date date) throws Exception {
-        int i = 0;
-        while (i<8) {
+    public WeekResult (Date date, int numberOfDays) throws Exception {
+        this(date,null,numberOfDays, true);
+        /*     int i = 0;
+        while (i<numberOfDays) {
             try {
                 DayResult dayResult = new DayResult(date);
                 dayResult.fillFromBase();
@@ -40,15 +41,15 @@ public class WeekResult extends CalcResult {
                 log.error("Скорее всего ошибка соединения с базой.",e);
             }
 
-       }
+       }*/
     }
 
-    public WeekResult (Date date, HashSet<String> selectedUsers) throws Exception {
+    public WeekResult (Date date, HashSet<String> selectedUsers,int numberOfDays,boolean includeUsers ) throws Exception {
         int i = 0;
-        while (i<8) {
+        while (i<numberOfDays) {
             try {
                 DayResult dayResult = new DayResult(date);
-                dayResult.fillFromBaseForUsergroup(selectedUsers);
+                dayResult.fillFromBaseForUsergroup(selectedUsers,includeUsers);
                 i++;
                 results.add(dayResult);
                 //уменьшаем дату на 1 день
@@ -78,6 +79,23 @@ public class WeekResult extends CalcResult {
 
         return result;
     }
+
+    public String toStringDayAndDate() {
+        java.util.Collections.sort(results);
+        java.util.Collections.reverse(results);
+        String result = "";
+        String formatString = "['%s', %d, %d, %d], \n";
+        for (DayResult element :results ) {
+            result = result+ String.format(formatString,
+                    element.getDayAndDate(),
+                    element.getTotalOpened(),
+                    element.getTotalClosed(),
+                    element.getTotalClosedInSla());
+        }
+
+        return result;
+    }
+
     public int totalOpened(){
         int result = 0;
         for (DayResult item : results) {
