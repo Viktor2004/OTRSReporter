@@ -1,19 +1,14 @@
 import calculate.Calc;
-import client.SearchRequest;
-import client.SearchTypes;
 import client.WebServiceClient;
 import input.Cmd;
 import input.Params;
 import input.Soap;
-import org.apache.log4j.Appender;
-import org.apache.log4j.FileAppender;
 import output.htmlTables;
 import org.apache.log4j.Logger;
 import ticket.TicketImpl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -63,6 +58,7 @@ public class Executor {
             List<String> allTickets = Soap.getAllOpenAndClosedTicketsInPeriod(Params.getStartDateInDate(), Params.getEndDateInDate());
             log.info("Список заявок получен, загрузка заявок.");
             log.info("******************************");
+
             List<TicketImpl> allTicketsImpl = new ArrayList<>();
             int i = 0;
 

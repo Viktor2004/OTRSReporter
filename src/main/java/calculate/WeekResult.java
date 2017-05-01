@@ -55,7 +55,9 @@ public class WeekResult extends CalcResult {
                 //уменьшаем дату на 1 день
                 Calendar instance = Calendar.getInstance();
                 instance.setTime(date); //устанавливаем дату, с которой будет производить операции
-                instance.add(Calendar.DAY_OF_MONTH, -1);// отнимаем 1 день от установленной даты
+                if (Calendar.DAY_OF_MONTH>1){
+                    instance.add(Calendar.DAY_OF_MONTH, -1);// отнимаем 1 день от установленной даты
+                }
                 date = instance.getTime(); // получаем измененную дату
             }catch (Exception e) {
                 log.error("Скорее всего ошибка соединения с базой.",e);
