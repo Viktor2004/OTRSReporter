@@ -1,0 +1,16 @@
+calculate\DayResult.class
+input\Params.class
+input\Cmd.class
+input\Soap.class
+ticket\Ticket.class
+Executor.class
+calculate\WeekResult.class
+client\WebServiceClient.class
+calculate\Calc.class
+client\WebServiceClient$1.class
+calculate\CalcResult.class
+output\htmlTables.class
+ticket\TicketImpl.class
+client\SearchRequest.class
+client\SearchTypes.class
+client\WebServiceInterface.class
